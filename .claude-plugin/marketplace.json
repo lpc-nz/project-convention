@@ -1,7 +1,7 @@
 {
   "name": "lpc-plugins",
   "owner": {
-    "name": "Chung Le"
+    "name": "lpc-nz"
   },
   "metadata": {
     "description": "Claude Code plugins for keeping AI-generated code consistent with an existing codebase.",
