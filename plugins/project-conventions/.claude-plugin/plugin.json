@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Turn a codebase's implicit conventions into explicit guardrails. Generates a project-specific architect skill, reviewer skill, review subagent, CLAUDE.md, and pattern-lint script so AI-generated code follows your existing architecture, design system, and database patterns instead of inventing new ones.",
   "author": {
-    "name": "Chung Le",
-    "email": "lephichung@gmail.com"
+    "name": "Chung Le"
   },
   "keywords": ["architecture", "code-review", "conventions", "consistency", "guardrails", "onboarding"]
 }

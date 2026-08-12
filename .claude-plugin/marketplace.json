@@ -1,8 +1,7 @@
 {
   "name": "lpc-plugins",
   "owner": {
-    "name": "Chung Le",
-    "email": "lephichung@gmail.com"
+    "name": "Chung Le"
   },
   "metadata": {
     "description": "Claude Code plugins for keeping AI-generated code consistent with an existing codebase.",
