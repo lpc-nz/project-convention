@@ -1,0 +1,18 @@
+{
+  "name": "lpc-plugins",
+  "owner": {
+    "name": "YOUR NAME",
+    "email": "you@example.com"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for keeping AI-generated code consistent with an existing codebase.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "project-conventions",
+      "source": "./plugins/project-conventions",
+      "description": "Generates per-repo architecture guardrails: an architect skill for file placement, a reviewer skill and subagent for consistency review, a CLAUDE.md, and a deterministic pattern-lint script."
+    }
+  ]
+}
