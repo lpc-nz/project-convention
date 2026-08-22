@@ -56,6 +56,7 @@ Hard ceiling ~30 lines. This is in context every single session, so it earns its
 | Topic | File |
 |---|---|
 | Architecture & data model | `docs/architecture.md` |
+| Decision history (append-only) | `docs/history.md` |
 | Design system | `<tokens file>` |
 | Build order / status | `docs/implementation-plan.md` |
 | Database schema | `<migration file>` |

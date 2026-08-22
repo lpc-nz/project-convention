@@ -36,13 +36,18 @@ PHASE 2 — GENERATE (after I confirm the rules)
 Write these files:
 
 a) docs/architecture.md — only if it doesn't exist. Short: stack, folder map,
-   layering rules, data model.
+   layering rules, data model. Current-state only, never a log.
 
-b) CLAUDE.md at the root — MAXIMUM 30 LINES. A table of canonical documents
+b) docs/history.md — only if it doesn't exist. An empty, append-only dated log
+   (date, one-line decision, commit hash) that the maintenance rule below appends
+   to whenever a "decision needed" gets resolved. Keeps architecture.md from
+   turning into a changelog.
+
+c) CLAUDE.md at the root — MAXIMUM 30 LINES. A table of canonical documents
    ("edit in place, never fork"), 4 non-negotiable rules, naming conventions.
    Anything that isn't needed EVERY session goes in a skill instead, not here.
 
-c) .claude/skills/<project>-architect/SKILL.md — fires BEFORE writing a file.
+d) .claude/skills/<project>-architect/SKILL.md — fires BEFORE writing a file.
    Contains: a canonical folder map with each folder annotated; placement rules
    by task type (one entry per kind of thing this repo creates, each naming the
    exact destination and what must be registered alongside it); naming conventions;
@@ -50,7 +55,7 @@ c) .claude/skills/<project>-architect/SKILL.md — fires BEFORE writing a file.
    The frontmatter description must be pushy and concrete — list the actual phrases
    I'd say and the actual filenames I'd mention. Vague descriptions never trigger.
 
-d) .claude/skills/<project>-reviewer/SKILL.md — fires AFTER writing, before commit.
+e) .claude/skills/<project>-reviewer/SKILL.md — fires AFTER writing, before commit.
    It MUST contain all of these:
    - THE PRECEDENT RULE: no finding may be reported without citing a specific
      existing file that demonstrates the correct pattern. If no precedent exists,
@@ -66,11 +71,11 @@ d) .claude/skills/<project>-reviewer/SKILL.md — fires AFTER writing, before co
    - An output format with Critical / Major / Minor / Decisions-needed, where every
      finding has: file:line, the rule, the precedent file, and a concrete fix.
 
-e) .claude/agents/architecture-reviewer.md — a read-only subagent that invokes the
+f) .claude/agents/architecture-reviewer.md — a read-only subagent that invokes the
    reviewer skill, reviews only the diff, cites precedents, never edits or commits,
    and does not restate rules from memory.
 
-f) scripts/lint-patterns.sh — deterministic grep checks for the MECHANICAL rules
+g) scripts/lint-patterns.sh — deterministic grep checks for the MECHANICAL rules
    only (hardcoded colours outside the theme, forbidden imports in UI files, wrong
    casing in SQL, forked docs). Anything a regex can catch belongs here, not in a
    prompt. Make it executable and exit non-zero on violations.
@@ -84,8 +89,10 @@ PHASE 3 — TEST
 3. If the reviewer missed it, the rule was too vague — sharpen it and retest.
 
 Then tell me: what to restart, how to invoke the reviewer, and the maintenance rule
-(when a review surfaces a "decision needed" and I make a call, that decision goes
-into docs/architecture.md — otherwise the same question returns every week).
+(when a review surfaces a "decision needed" and I make a call, update
+docs/architecture.md with the new rule AND append a dated entry to docs/history.md
+— otherwise the same question returns every week and there's no trail of what
+changed or why).
 ```
 
 ---

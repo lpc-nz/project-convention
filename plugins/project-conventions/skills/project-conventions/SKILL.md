@@ -79,11 +79,12 @@ Then write `docs/architecture.md` **first** — the skills must point at a real 
 Read each template in `templates/` immediately before writing its file, and fill it in. Order matters:
 
 1. `docs/architecture.md` — only if it doesn't exist. Short: stack, folder map, layering rules, data model.
-2. `CLAUDE.md` — from `templates/claude-md.template.md`. Hard ceiling of ~30 lines. If a rule isn't worth spending context on every single session, it belongs in a skill instead.
-3. `.claude/skills/<project>-architect/SKILL.md` — from `templates/architect.template.md`.
-4. `.claude/skills/<project>-reviewer/SKILL.md` — from `templates/reviewer.template.md`.
-5. `.claude/agents/architecture-reviewer.md` — from `templates/agent.template.md`. Nearly stack-agnostic; mostly just name the reviewer skill.
-6. `scripts/lint-patterns.sh` — from `templates/lint-patterns.template.sh`. Only include checks you verified are real rules in this repo.
+2. `docs/history.md` — only if it doesn't exist. A single empty dated-log doc (date, one-line decision, commit hash) that Step 6's maintenance rule appends to over time. Keeping it separate from `architecture.md` means the architecture doc always reads as current state, never a log.
+3. `CLAUDE.md` — from `templates/claude-md.template.md`. Hard ceiling of ~30 lines. If a rule isn't worth spending context on every single session, it belongs in a skill instead.
+4. `.claude/skills/<project>-architect/SKILL.md` — from `templates/architect.template.md`.
+5. `.claude/skills/<project>-reviewer/SKILL.md` — from `templates/reviewer.template.md`.
+6. `.claude/agents/architecture-reviewer.md` — from `templates/agent.template.md`. Nearly stack-agnostic; mostly just name the reviewer skill.
+7. `scripts/lint-patterns.sh` — from `templates/lint-patterns.template.sh`. Only include checks you verified are real rules in this repo.
 
 ### Step 4 — Wire up the deterministic layer
 
@@ -111,7 +112,7 @@ If the reviewer misses it, the rule was too vague — sharpen it and retest. A g
 Tell the user, briefly:
 - Restart the Claude Code session so `.claude/agents/` loads.
 - Invoke the reviewer before commits: `@architecture-reviewer review my changes`.
-- **The maintenance rule**: when a review surfaces a "decision needed" and they make a call, that decision goes into `docs/architecture.md` — otherwise the same question comes back every week. The skills are pointers; the docs are the truth, and only the docs are worth keeping current.
+- **The maintenance rule**: when a review surfaces a "decision needed" and they make a call, update `docs/architecture.md` with the new rule *and* append a dated entry to `docs/history.md` (date, one-line decision, commit hash if the call was made alongside a commit) — otherwise the same question comes back every week, and there's no trail of what the rule used to be or why it changed. `architecture.md` stays current-state only; `history.md` is the append-only log, never edited in place. The skills are pointers; the docs are the truth, and only the docs are worth keeping current.
 
 ## Naming
 
